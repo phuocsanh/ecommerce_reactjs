@@ -1,0 +1,16 @@
+@import "../Helpers/variables.scss";
+
+.container {
+  display: flex;
+  width: 100%;
+  height: calc(100vh - 95px);
+  overflow: visible !important;
+  background-color: $color-background-page-0;
+}
+.card-container {
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  overflow-x: auto;
+  //   background-color: blanchedalmond;
+}

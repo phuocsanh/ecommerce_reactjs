@@ -1,0 +1,46 @@
+@import "../Helpers/variables.scss";
+
+.container {
+  width: 100%;
+  height: auto;
+  display: flex;
+  overflow: hidden;
+  // background-color: aqua;
+}
+.left-menu {
+  width: 10rem;
+  min-height: calc(100vh - 60px);
+  display: flex;
+  flex-direction: column;
+
+  border-right: 1px solid rgb(209, 209, 209);
+}
+.btn-left-menu {
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+  width: 95%;
+  cursor: pointer;
+  border: none;
+  background-color: rgb(255, 255, 255);
+  padding: 4px;
+  &:hover {
+    background-color: rgb(212, 212, 212);
+  }
+}
+.btn-left-img {
+  width: 1rem;
+  height: 1rem;
+  margin-right: 0.3rem;
+  margin-left: 0.3rem;
+}
+.btn-add-new {
+  background-color: rgb(212, 212, 212);
+  padding: 4px 8px;
+  cursor: pointer;
+  border: none;
+  border-radius: 0.2rem;
+  &:hover {
+    color: white;
+  }
+}

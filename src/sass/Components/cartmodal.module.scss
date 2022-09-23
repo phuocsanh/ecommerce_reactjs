@@ -1,0 +1,60 @@
+@import "../Helpers/variables.scss";
+@import "../Helpers/mixin.scss";
+.cart-item {
+  display: flex;
+  width: 92%;
+  padding: 1rem 0px;
+  margin-right: 1rem;
+
+  //   background-color: aqua;
+  justify-content: space-between;
+}
+.modal {
+  max-height: 22rem;
+  overflow-y: scroll;
+  //   background-color: aqua;
+}
+.inc-dec {
+  display: flex;
+  justify-self: center;
+  align-items: center;
+  //   background-color: aqua;
+}
+.btn {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  //   @include styleText($color-black-0, 1rem, bold);
+}
+.btn-inc-dec {
+  width: 1.7rem;
+  height: 1.5rem;
+  background-color: white;
+  border: 1px solid rgb(219, 219, 219);
+  //   @include styleText($color-black-0, 1rem, bold);
+}
+.btn-cancel {
+  background-color: white;
+  border: 1px solid rgb(219, 219, 219);
+  @include styleText(black, 15px, normal);
+}
+.btn-buy {
+  margin-left: 1rem;
+  background-color: rgb(250, 194, 40);
+  border: 1px solid rgb(219, 219, 219);
+  @include styleText(white, 15px, normal);
+}
+
+.title {
+  margin-left: 0.8rem;
+  @include styleText($color-black-0, 18px, bold);
+}
+.qty {
+  @include styleText($color-black-0, 18px, normal);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 2rem;
+  padding: 0px 10px;
+}

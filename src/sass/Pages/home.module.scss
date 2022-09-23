@@ -1,0 +1,46 @@
+@import "../Helpers/variables.scss";
+
+.container {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  overflow: visible;
+}
+.category {
+  width: 100vh;
+  display: flex;
+  margin-top: 60px;
+  padding: 0.3rem 2rem;
+}
+.item-category {
+  padding: 0.1rem 1rem;
+  color: $color-primary;
+  -webkit-user-select: none;
+  user-select: none;
+  &:hover {
+    font-weight: 600;
+    color: $color-primary;
+  }
+}
+.item-category-choose {
+  padding: 0.1rem 1rem;
+  background-color: $color-primary;
+  color: rgb(255, 255, 255);
+  border-radius: 0.2rem;
+  -webkit-user-select: none;
+  user-select: none;
+  &:hover {
+    color: rgb(255, 255, 255);
+  }
+}
+
+.divMovieTrending {
+  display: flex;
+  max-height: 400px;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.divMovieTrending::-webkit-scrollbar {
+  background: transparent;
+}

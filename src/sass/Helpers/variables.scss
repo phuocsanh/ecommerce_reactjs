@@ -1,0 +1,26 @@
+// Color
+$color-black-0: rgb(0, 0, 0);
+$color-white-0: rgb(255, 255, 255);
+$color-blue-light-0: rgb(124, 187, 245);
+$color-background-page-0: #fff2d6d8;
+$color-primary: #fed682;
+// Border
+$bd-4: 4px;
+
+// Font size
+$fs-18: 18px;
+
+// Margin
+$mr-5: 5px;
+
+// Padding
+$pd-10: 10px;
+$pd-20: 20px;
+
+//Break point
+$breakpoint: (
+  "extra-large": 1200px,
+  "large": 992px,
+  "medium": 768px,
+  "small": 576px,
+);

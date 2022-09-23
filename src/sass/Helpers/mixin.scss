@@ -1,0 +1,12 @@
+// Không tham số
+// @mixin styleText {
+//   color:white;
+//   font-size: 13px;
+// }
+
+//Có tham số
+@mixin styleText($cl, $fs,$fw) {
+  color:$cl ;
+  font-size:$fs ;
+  font-weight: $fw;
+}

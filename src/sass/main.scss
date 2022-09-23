@@ -1,0 +1,22 @@
+// 1.import variables và mixin đầu tiên
+// @import './Helpers/variables';
+// @import './Helpers/mixin';
+
+// 2. Vị trí của các thư viện trong Vendors
+
+// 3.Vị trí của Base
+// @import './Base/reset';
+// @import './Base/customize';
+
+// 4. Layout
+// @import './Layouts/header';
+// @import './Layouts/footer.scss';
+
+// 5. Component 
+// @import './Components/button';
+
+// 6. Pages 
+// @import './Pages/home';
+
+// 7. Theme ở cuối cùng
+// @import './Themes/Dark/'
