@@ -1,4 +1,5 @@
 @import "../Helpers/variables.scss";
+@import "../Helpers/mixin.scss";
 
 .container {
   display: flex;
@@ -13,4 +14,32 @@
   flex-flow: row wrap;
   overflow-x: auto;
   //   background-color: blanchedalmond;
+}
+@include responsive_320 {
+}
+
+@include responsive_375 {
+}
+
+@include responsive_425 {
+  .container {
+    display: flex;
+    width: 102%;
+    height: calc(100vh - 87px);
+    // overflow: visible !important;
+    background-color: $color-background-page-0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@include responsive_768 {
+  .container {
+    display: flex;
+    width: 100%;
+    height: calc(100vh - 95px);
+    overflow: visible !important;
+    background-color: $color-background-page-0;
+  }
 }

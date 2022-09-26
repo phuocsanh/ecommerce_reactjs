@@ -45,3 +45,67 @@
 .span {
   @include styleText($color-black-0, 20px, bold);
 }
+@include responsive_320 {
+}
+
+@include responsive_375 {
+}
+
+@include responsive_425 {
+  .container {
+    padding: $pd-10;
+    margin-left: 2.4rem !important;
+    width: 80%;
+    height: 22rem;
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    margin-top: 2rem;
+    margin-left: 2%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .image {
+    width: 12rem;
+    height: 12rem;
+    object-fit: contain;
+  }
+  .div-span {
+    // background-color: $color-blue-light-0;
+    min-width: 12rem;
+    height: 12rem;
+    padding: $pd-10;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@include responsive_768 {
+  .container {
+    padding: $pd-10;
+    width: 30.5%;
+    height: 22rem;
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    margin-top: 2rem;
+    margin-left: 2%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .image {
+    width: 8rem;
+    height: 8rem;
+    object-fit: contain;
+  }
+  .div-span {
+    // background-color: $color-blue-light-0;
+    min-width: 8rem;
+    height: 8rem;
+    padding: $pd-10;
+    display: flex;
+    flex-direction: column;
+  }
+}

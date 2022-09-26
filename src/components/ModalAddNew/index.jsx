@@ -1,20 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Input } from "antd";
 import { useFormik } from "formik";
-import { UserOutlined, KeyOutlined } from "@ant-design/icons";
-import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import clsx from "clsx";
 import styles from "../../sass/Components/signInOrSignUp.module.scss";
 import { object, string, mixed } from "yup";
 import { auth, fs, storage } from "../../config/ConfigFireBase";
 import { toast } from "react-toastify";
+import { doc, setDoc } from "firebase/firestore";
 import { useDispatch } from "react-redux";
-import { usersSlice } from "../../redux/reducers/usersSlice";
 import { useNavigate } from "react-router-dom";
 import { Select } from "antd";
 import moment from "moment/moment";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 const { Option } = Select;
+
 function ModalAddNew({
   typeAdd,
   open,
@@ -25,11 +24,12 @@ function ModalAddNew({
   loadTotalItem,
   item,
 }) {
-  console.log("🚀 ~ file: index.jsx ~ line 28 ~ item", item);
+  // console.log("🚀 ~ file: index.jsx ~ line 28 ~ isUpdate", isUpdate);
+  // console.log("🚀 ~ file: index.jsx ~ line 28 ~ item", item);
   const { TextArea } = Input;
 
   const [validationSchema, setValidationSchema] = useState({});
-  const [category, setCategory] = useState(categories[0]?.title?.toLowerCase());
+  const [category, setCategory] = useState();
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [initValue, setInitValue] = useState({});
   const [selectedImage, setSelectedImage] = useState(null);
@@ -153,7 +153,8 @@ function ModalAddNew({
   });
   const onUpdate = (values, dbName) => {
     if (selectedImage) {
-      const storageRef = ref(storage, `/files/${values.name}`);
+      console.log("selected image");
+      const storageRef = ref(storage, `/files/${values.title}`);
       const uploadTask = uploadBytesResumable(storageRef, values.image);
       uploadTask.on(
         "state_changed",
@@ -170,31 +171,44 @@ function ModalAddNew({
         () => {
           // download url
           getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-            auth.onAuthStateChanged((user) => {
-              if (user) {
-                fs.collection(dbName)
-                  .doc(item.key)
-                  .update({
-                    title: values.title,
-                    price: Number(values.price),
-                    description: values.description,
-                    image: url,
-                    categoryId: values.categoryId,
-                  })
-                  .then(() => {
-                    console.log("successfully updated");
-                    setSelectedImage(null);
-                    setOpen(false);
-                    document.getElementById("file").value = "";
-                    toast.success(`Updated successfully`);
-                  })
-                  .catch((error) => console.log("error", error));
-              }
-            });
+            fs.collection(dbName)
+              .doc(item.key)
+              .set({
+                title: values.title,
+                price: Number(values.price),
+                description: values.description,
+                image: url,
+                categoryId: values.categoryId,
+                createAt: item.createAt,
+              })
+              .then(() => {
+                console.log("successfully updated");
+                setSelectedImage(null);
+                setOpen(false);
+                document.getElementById("file").value = "";
+                toast.success(`Updated successfully`);
+              })
+              .catch((error) => console.log("error", error));
+
+            // const docRef = doc(fs, "products", "v2i2hU4mokgzsNjqi5Qx");
+            // setDoc(docRef, {
+            //   title: values.title,
+            //   price: Number(values.price),
+            //   description: values.description,
+            //   image: url,
+            //   categoryId: values.categoryId,
+            // })
+            //   .then((docRef) => {
+            //     console.log("Entire Document has been updated successfully");
+            //   })
+            //   .catch((error) => {
+            //     console.log(error);
+            //   });
           });
         }
       );
     } else {
+      console.log("No selected");
       auth.onAuthStateChanged((user) => {
         if (user) {
           fs.collection(dbName)
@@ -205,9 +219,9 @@ function ModalAddNew({
               description: values.description,
               image: item.image,
               categoryId: values.categoryId,
+              createAt: item.createAt,
             })
             .then(() => {
-              console.log("successfully updated");
               setSelectedImage(null);
               setOpen(false);
               document.getElementById("file").value = "";
@@ -219,7 +233,11 @@ function ModalAddNew({
     }
   };
   const handleUpload = (values) => {
-    const storageRef = ref(storage, `/files/${values.name}`);
+    console.log(
+      "🚀 ~ file: index.jsx ~ line 234 ~ handleUpload ~ values",
+      values
+    );
+    const storageRef = ref(storage, `/files/${values.title}`);
     const uploadTask = uploadBytesResumable(storageRef, values.image);
     uploadTask.on(
       "state_changed",
@@ -248,6 +266,7 @@ function ModalAddNew({
             .then(() => {
               toast.success("Thêm mới thành công");
               formik.resetForm();
+              setSelectedImage(null);
               setloadTotalItem(!loadTotalItem);
               document.getElementById("file").value = "";
               setOpen(false);
@@ -374,7 +393,7 @@ function ModalAddNew({
                 <Select
                   style={{ width: 120 }}
                   onChange={handleChange}
-                  defaultValue={item && item?.categoryId}
+                  defaultValue={item ? item?.categoryId : !item ? null : null}
                 >
                   {categories.map((item) => (
                     <Option value={item.title}>{item.title}</Option>
@@ -401,12 +420,12 @@ function ModalAddNew({
                 style={{ marginTop: 20 }}
                 onChange={handleProductImage}
               />{" "}
-              {item && typeAdd == "product" && !selectedImage ? (
+              {item && typeAdd === "product" && !selectedImage ? (
                 <img
                   style={{ width: 50, height: 50, marginLeft: 20 }}
                   src={item.image}
                 />
-              ) : typeAdd == "product" && selectedImage ? (
+              ) : typeAdd === "product" && selectedImage ? (
                 <img
                   style={{ width: 50, height: 50, marginLeft: 20 }}
                   src={URL.createObjectURL(selectedImage)}

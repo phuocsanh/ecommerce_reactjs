@@ -24,8 +24,8 @@ export default function Card({ data, addToCart }) {
   };
   const showDescription = (data, styles) => {
     if (data) {
-      return data.length > 90 ? (
-        <span className={styles}>{`${data.slice(0, 30)}...`}</span>
+      return data.length > 40 ? (
+        <span className={styles}>{`${data.slice(0, 40)}...`}</span>
       ) : (
         <span className={styles}>{data}</span>
       );

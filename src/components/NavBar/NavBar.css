@@ -96,6 +96,72 @@
   height: 3rem;
   margin-right: 1rem;
 }
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .NavbarItems {
+    position: fixed;
+  }
+  .nav-menu {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    height: auto;
+    position: absolute;
+    top: 60px;
+    left: -100%;
+    opacity: 1;
+    transition: all 0.5s ease;
+  }
+  .nav-menu.active {
+    /* background-color: blue; */
+    background: rgba(36, 36, 36, 0.5);
+    left: 0;
+    z-index: 1;
+  }
+  .nav-links {
+    text-align: center;
+    padding: 0.2rem;
+    width: 100%;
+    display: table;
+  }
+
+  .nav-links:hover {
+    background-color: rgb(255, 255, 255);
+    border-radius: 0px;
+  }
+
+  .navbar-logo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(25%, 50%);
+  }
+  .menu-icon {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(-100%, 60%);
+    font-size: 0.2rem;
+    cursor: pointer;
+  }
+  .nav-links-mobile {
+    display: block;
+    text-align: center;
+    padding: 0.2rem;
+    margin: 0.7rem auto;
+    border-radius: 4px;
+    width: 70%;
+    background-color: rgb(255, 255, 255);
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    font-size: 1rem;
+  }
+  .nav-links-mobile:hover {
+    background-color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+    transition: 250ms;
+  }
+}
 @media screen and (max-width: 767px) {
   .NavbarItems {
     position: fixed;
@@ -161,7 +227,7 @@
     color: rgb(255, 255, 255);
     transition: 250ms;
   }
-  Button {
+  .div-button Button {
     display: none;
   }
   .div-logo {

@@ -1,3 +1,5 @@
+@import "./variables.scss";
+
 // Không tham số
 // @mixin styleText {
 //   color:white;
@@ -5,8 +7,44 @@
 // }
 
 //Có tham số
-@mixin styleText($cl, $fs,$fw) {
-  color:$cl ;
-  font-size:$fs ;
+@mixin styleText($cl, $fs, $fw) {
+  color: $cl;
+  font-size: $fs;
   font-weight: $fw;
+}
+
+@mixin responsive_320() {
+  @media #{$res_320} {
+    @content;
+  }
+}
+@mixin responsive_375() {
+  @media #{$res_375} {
+    @content;
+  }
+}
+@mixin responsive_425() {
+  @media #{$res_425} {
+    @content;
+  }
+}
+@mixin responsive_768() {
+  @media #{$res_768} {
+    @content;
+  }
+}
+@mixin responsive_992() {
+  @media #{$res_992} {
+    @content;
+  }
+}
+@mixin responsive_1024() {
+  @media #{$res_1024} {
+    @content;
+  }
+}
+@mixin responsive_1200() {
+  @media #{$res_1200} {
+    @content;
+  }
 }
