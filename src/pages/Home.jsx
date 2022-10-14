@@ -3,14 +3,12 @@ import styles from "../sass/Pages/home.module.scss";
 import NavBar from "../components/NavBar";
 import Product from "./Product";
 import clsx from "clsx";
-import { fs, auth } from "../config/ConfigFireBase";
+import { fs } from "../config/ConfigFireBase";
 
 function Home({ db }) {
   const [idexCategories, setIdexCategories] = useState(0);
   const [categories, setCategories] = useState([]);
-
   const [idCategory, setIdCategory] = useState(null);
-  // console.log("🚀 ~ file: Home.jsx ~ line 13 ~ Home ~ idCategory", idCategory);
 
   const getListCategory = async () => {
     const categoriesNew = await fs.collection("categories").get();

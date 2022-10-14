@@ -43,13 +43,13 @@ export default function NavBar() {
     },
     {
       title: "SignIn",
-      url: "/news",
+      url: "",
       cName: "nav-links-mobile",
       isClone: true,
     },
     {
       title: "SignUp",
-      url: "/news",
+      url: "",
       cName: "nav-links-mobile",
       isClone: true,
     },

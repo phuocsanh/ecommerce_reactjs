@@ -6,17 +6,12 @@ import box from "../assets/image/box.png";
 import category from "../assets/image/category.png";
 import TableComponent from "../components/Table";
 import { Button } from "../components/Button/Button";
-import { doc, getDoc } from "firebase/firestore";
-import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import ModalAddNew from "../components/ModalAddNew";
-import { fs, auth } from "../config/ConfigFireBase";
-import moment from "moment/moment";
+import { fs } from "../config/ConfigFireBase";
 
 function Admin() {
   const [listData, setListData] = useState([]);
-  // console.log("🚀 ~ file: Admin.jsx ~ line 13 ~ Admin ~ listData", listData);
-
   const [typeAdd, setTypeAdd] = useState("product");
   const [isUpdate, setIsUpdate] = useState(false);
   const [openModalAddNew, setOpenModalAddNew] = useState(false);
@@ -25,12 +20,6 @@ function Admin() {
   const [categories, setCategories] = useState([]);
   const [loadTotalItem, setloadTotalItem] = useState(false);
   const [item, setItem] = useState(null);
-  console.log("🚀 ~ file: Admin.jsx ~ line 28 ~ Admin ~ item", item);
-  // console.log(
-  //   "🚀 ~ file: Admin.jsx ~ line 26 ~ Admin ~ categories",
-  //   categories
-  // );
-
   const [page, setPage] = useState(1);
 
   useEffect(() => {
@@ -69,10 +58,6 @@ function Admin() {
 
   const getTotalData = async (dbName) => {
     const data = await fs.collection(dbName).get();
-    console.log(
-      "🚀 ~ file: Admin.jsx ~ line 72 ~ getTotalData ~ data",
-      data?.docs?.length
-    );
     setTotalPage(Math.ceil(data?.docs?.length / 5));
     setTotalData(data?.docs?.length);
   };

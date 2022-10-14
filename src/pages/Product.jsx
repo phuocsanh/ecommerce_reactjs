@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-
 import Card from "../components/Card/Card";
 import styles from "../../src/sass/Pages/product.module.scss";
 import { appsSlice } from "../redux/reducers/appsSlice";
@@ -8,8 +7,8 @@ import ReactDOM from "react-dom";
 import Modal from "antd/lib/modal/Modal";
 import { fs, auth } from "../config/ConfigFireBase";
 import clsx from "clsx";
-import { display } from "@mui/system";
 import { toast } from "react-toastify";
+
 function Product({ idCategory }) {
   const dispatch = useDispatch();
   const [listProduct, setListProduct] = useState();
@@ -17,9 +16,6 @@ function Product({ idCategory }) {
     React,
     ReactDOM,
   });
-
-  // const isModal = useSelector((state) => state.apps.isModal);
-  // const open = useSelector((state) => state.apps.open);
 
   const uid = useSelector((state) => state.users.userUid);
   const openPayPalModal = useSelector((state) => state.apps.openPayPalModal);
@@ -36,8 +32,6 @@ function Product({ idCategory }) {
   let Product;
   const addToCart = (product) => {
     if (uid !== null) {
-      // console.log("🚀 ~ file: Product.jsx ~ line 24 ~ addToCart ~ uid", uid);
-      // console.log("product", product);
       Product = product;
       Product["qty"] = 1;
       Product["TotalProductPrice"] = Product.qty * Product.price;
@@ -56,10 +50,7 @@ function Product({ idCategory }) {
   const getListProduct = async () => {
     const products = await fs.collection("products").get();
     let listProduct = [];
-    console.log(
-      "🚀 ~ file: Product.jsx ~ line 63 ~ getListProduct ~ listProduct",
-      listProduct
-    );
+
     for (let snap of products.docs) {
       let data = snap.data();
       data.ID = snap.id;
@@ -92,17 +83,12 @@ function Product({ idCategory }) {
 
   useEffect(() => {
     getListProduct();
-    // console.log("listProduct", listProduct);
   }, [idCategory]);
 
   const ratio = 0.000043;
 
   function _createOrder(data, actions) {
     const total = (totalPrice * ratio).toFixed(2);
-    // console.log(
-    //   "🚀 ~ file: Product.jsx ~ line 95 ~ _createOrder ~ total",
-    //   total
-    // );
     const id = Math.random(1, 100);
     return actions.order.create({
       purchase_units: [
