@@ -29,12 +29,7 @@ export default function NavBar() {
       cName: "nav-links",
       isClone: true,
     },
-    {
-      title: "Contact",
-      url: "/contact",
-      cName: "nav-links",
-      isClone: true,
-    },
+
     {
       title: "News",
       url: "/news",

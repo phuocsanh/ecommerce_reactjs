@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "../sass/Pages/news.module.scss";
 import clsx from "clsx";
+import { Modal, Input } from "antd";
 import { fs } from "../config/ConfigFireBase";
 import NavBar from "../components/NavBar/index";
 import listDiscussion from "../constant/listDiscussion.json";
@@ -8,6 +9,19 @@ import listPromotion from "../constant/listpromotion.json";
 
 function News() {
   const [list, setList] = useState([]);
+  const [openModal, setOpenModal] = useState(false);
+  const [modalContent, setModalContent] = useState({});
+  const [width, setWidth] = useState(window.innerWidth);
+  const updateDimensions = () => {
+    setWidth(window.innerWidth);
+  };
+  const handleOpenModal = (item) => {
+    setOpenModal(true);
+    setModalContent(item);
+  };
+  const handleCancel = () => {
+    setOpenModal(false);
+  };
   const getNewss = async () => {
     const listNewss = await fs.collection("newss").get();
     let listNews = [];
@@ -24,6 +38,10 @@ function News() {
   useEffect(() => {
     getNewss();
   }, []);
+  useEffect(() => {
+    window.addEventListener("resize", updateDimensions);
+    return () => window.removeEventListener("resize", updateDimensions);
+  }, []);
 
   return (
     <div className={clsx(styles.container)}>
@@ -32,7 +50,11 @@ function News() {
         <div className={clsx(styles["news-left"])}>
           {list.map((item, idx) => {
             return (
-              <div key={idx} className={styles["div-list__left"]}>
+              <div
+                key={idx}
+                className={styles["div-list__left"]}
+                onClick={() => handleOpenModal(item)}
+              >
                 <img src={item?.image} />
                 <div
                   style={{
@@ -110,6 +132,23 @@ function News() {
           </div>
         </div>
       </div>
+      <Modal
+        open={openModal}
+        onCancel={handleCancel}
+        okButtonProps={{ style: { display: "none" } }}
+        width={width * 0.7}
+      >
+        <div style={{ width: "100%", marginTop: 30 }}>
+          <img
+            src={modalContent?.image}
+            style={{ width: "100%", height: 300 }}
+          />
+          <p style={{ textAlign: "left", marginTop: 20 }}>
+            Tác giả: {modalContent.author}
+          </p>
+          <p style={{ marginTop: 40 }}>{modalContent?.content}</p>
+        </div>
+      </Modal>
     </div>
   );
 }

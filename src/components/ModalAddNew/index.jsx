@@ -6,7 +6,6 @@ import styles from "../../sass/Components/signInOrSignUp.module.scss";
 import { object, string, mixed } from "yup";
 import { auth, fs, storage } from "../../config/ConfigFireBase";
 import { toast } from "react-toastify";
-import { doc, setDoc } from "firebase/firestore";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Select } from "antd";
@@ -24,12 +23,9 @@ function ModalAddNew({
   loadTotalItem,
   item,
 }) {
-  // console.log("🚀 ~ file: index.jsx ~ line 28 ~ isUpdate", isUpdate);
-  // console.log("🚀 ~ file: index.jsx ~ line 28 ~ item", item);
   const { TextArea } = Input;
 
   const [validationSchema, setValidationSchema] = useState({});
-  const [category, setCategory] = useState();
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [initValue, setInitValue] = useState({});
   const [selectedImage, setSelectedImage] = useState(null);
@@ -115,16 +111,10 @@ function ModalAddNew({
     enableReinitialize: true,
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      // alert(JSON.stringify(values, null, 2));
       if (typeAdd == "product" && !isUpdate) {
         if (imageError.length > 0) {
           return;
         }
-        console.log(
-          "🚀 ~ file: index.jsx ~ line 62 ~ ModalAddNew ~ values",
-          values
-        );
-        // handleAdderoducts(values);
         handleUpload(values);
       } else if (typeAdd !== "product" && !isUpdate) {
         handleAddCategory(values);
@@ -162,7 +152,6 @@ function ModalAddNew({
           const percent = Math.round(
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100
           );
-
           // update progress
         },
         (err) => {
@@ -182,33 +171,16 @@ function ModalAddNew({
                 createAt: item.createAt,
               })
               .then(() => {
-                console.log("successfully updated");
                 setSelectedImage(null);
                 setOpen(false);
                 document.getElementById("file").value = "";
                 toast.success(`Updated successfully`);
               })
               .catch((error) => console.log("error", error));
-
-            // const docRef = doc(fs, "products", "v2i2hU4mokgzsNjqi5Qx");
-            // setDoc(docRef, {
-            //   title: values.title,
-            //   price: Number(values.price),
-            //   description: values.description,
-            //   image: url,
-            //   categoryId: values.categoryId,
-            // })
-            //   .then((docRef) => {
-            //     console.log("Entire Document has been updated successfully");
-            //   })
-            //   .catch((error) => {
-            //     console.log(error);
-            //   });
           });
         }
       );
     } else {
-      console.log("No selected");
       auth.onAuthStateChanged((user) => {
         if (user) {
           fs.collection(dbName)
@@ -233,10 +205,6 @@ function ModalAddNew({
     }
   };
   const handleUpload = (values) => {
-    console.log(
-      "🚀 ~ file: index.jsx ~ line 234 ~ handleUpload ~ values",
-      values
-    );
     const storageRef = ref(storage, `/files/${values.title}`);
     const uploadTask = uploadBytesResumable(storageRef, values.image);
     uploadTask.on(
@@ -280,9 +248,7 @@ function ModalAddNew({
   };
 
   const handleChange = (value) => {
-    // console.log(`selected ${value.toLowerCase()}`);
     formik.setFieldValue("categoryId", value.toLowerCase());
-    // setCategory(value.toLowerCase());
   };
   const handleCancel = () => {
     formik.resetForm();
@@ -297,7 +263,6 @@ function ModalAddNew({
     e.preventDefault();
     selectFile = e.target.files[0];
 
-    console.log("selectFile", selectFile);
     if (selectFile) {
       if (selectFile && types.includes(selectFile.type)) {
         formik.setFieldValue("image", selectFile);
